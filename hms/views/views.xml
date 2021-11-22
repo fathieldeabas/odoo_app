@@ -1,0 +1,197 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="patient_list">
+      <field name="name">patient list</field>
+      <field name="model">patient.details</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="first_name"/>
+          <field name="last_name"/>
+          <field name="birth_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="patient_form">
+            <field name="name">patient form</field>
+            <field name="model">patient.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Main Data">
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <field name="birth_date"/>
+                                <field name="history"/>
+                                <field name="cr_ratio"/>
+                            </group>
+                            <group string="Extra Data">
+                                <field name="blood_type"/>
+                                <field name="pcr"/>
+                                <field name="image"/>
+                                <field name="aga"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+###################################################################
+
+      <record model="ir.ui.view" id="department_list">
+      <field name="name">hms department</field>
+      <field name="model">hms.department</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="capacity"/>
+          <field name="patients_id"/>
+            <field name="patient_birth_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="department_form">
+            <field name="name">department form</field>
+            <field name="model">hms.department</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group string="Main Data">
+                                <field name="name"/>
+                                <field name="capacity"/>
+                                <field name="is_opened"/>
+                                <field name="patients_id"/>
+                                <field name="patient_birth_date"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+#######################################################
+      <record model="ir.ui.view" id="hms.doctor_list">
+      <field name="name">doctor list</field>
+      <field name="model">hms.doctor</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="first_name"/>
+          <field name="last_name"/>
+          <field name="image"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="hms.doctor_form">
+            <field name="name">hms.doctor form</field>
+            <field name="model">hms.doctor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group string="Main Data">
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <field name="image"/>
+
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+#############################################################
+<!-- <record model="ir.ui.view" id="patient_list">-->
+<!--      <field name="name">patient list</field>-->
+<!--      <field name="model">patient.details</field>-->
+<!--      <field name="arch" type="xml">-->
+<!--        <tree>-->
+<!--          <field name="patient_name"/>-->
+
+<!--          <field name="date_birth"/>-->
+<!--        </tree>-->
+<!--      </field>-->
+<!--    </record>-->
+
+<!--    <record model="ir.ui.view" id="patient_form">-->
+<!--            <field name="name">patient form</field>-->
+<!--            <field name="model">patient.details</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form>-->
+<!--                    <sheet>-->
+<!--                            <group string="Main Data">-->
+<!--                                <field name="patient_name"/>-->
+<!--                                <field name="date_birth"/>-->
+<!--                            </group>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="hms_action_window">
+      <field name="name">patient window</field>
+      <field name="res_model">patient.details</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+      <record model="ir.actions.act_window" id="hms_action_window1">
+      <field name="name">hms department</field>
+      <field name="res_model">hms.department</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+      <record model="ir.actions.act_window" id="hms_action_window2">
+      <field name="name">hms doctor</field>
+      <field name="res_model">hms.doctor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="hms.action_server">
+      <field name="name">hms server</field>
+      <field name="model_id" ref="model_hms_hms"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="hms" id="hms.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="hms.menu_1" parent="hms.menu_root"/>
+    <menuitem name="Menu 2" id="hms.menu_2" parent="hms.menu_root"/>
+-->
+    <menuitem name="hms" id="hms_menu_root"/>
+
+        <menuitem name="hms" id="hms_menu_1" parent="hms_menu_root"/>
+
+        <menuitem name="patients" id="hms_list" parent="hms_menu_1"
+                  action="hms_action_window"/>
+
+        <menuitem name="departmens" id="hms_list1" parent="hms_menu_1"
+                  action="hms_action_window1"/>
+        <menuitem name="doctors" id="hms_list2" parent="hms_menu_1"
+                  action="hms_action_window2"/>
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="hms.menu_1_list" parent="hms.menu_1"
+              action="hms.action_window"/>
+    <menuitem name="Server to list" id="hms" parent="hms.menu_2"
+              action="hms.action_server"/>
+-->
+  </data>
+</odoo>
